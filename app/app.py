@@ -1,13 +1,23 @@
 import datetime
 import os
+import signal
+import sys
 
 from bson.objectid import ObjectId
 from flask import Flask, redirect, render_template, request
 from flask_pymongo import PyMongo
 
+
+def handle_sigterm(signum, frame):
+    print("SIGTERM received")
+    sys.exit(0)
+
+
 app = Flask(__name__)
 app.config["MONGO_URI"] = f"mongodb://{os.environ['MONGO_HOST']}:27017/tasks"
 mongo = PyMongo(app)
+signal.signal(signal.SIGTERM, handle_sigterm)
+
 
 @app.route("/", methods=['GET'])
 def home():

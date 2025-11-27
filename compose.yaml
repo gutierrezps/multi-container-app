@@ -6,6 +6,7 @@ services:
       - "8080:5000"
     environment:
       MONGO_HOST: mongo
+    init: true  # Handle SIGTERM sent by "docker compose down"
 
   mongo:
     image: "mongo:7.0"

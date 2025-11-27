@@ -1,4 +1,4 @@
-FROM python:3.12-slim
+FROM python:3.13-slim
 
 WORKDIR /usr/src/app
 
@@ -9,4 +9,4 @@ COPY . .
 
 EXPOSE 5000
 
-CMD flask --app app run --host=0.0.0.0
+CMD ["flask", "--app", "app", "run", "--host=0.0.0.0", "--no-reload"]
